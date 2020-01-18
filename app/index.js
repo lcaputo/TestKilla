@@ -90,7 +90,7 @@ class MovieApp extends Component {
 
     this.bgY = interpolate(this.buttonOpacity, {
       inputRange: [0, 1],
-      outputRange: [-height / 3 - 70, 0],
+      outputRange: [-height / 3 - 50, 0],
       extrapolate: Extrapolate.CLAMP
     });
 
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: -40,
+    top: -20,
     left: width / 2 - 20,
     elevation: 6,
     shadowOffset: {width:2,height:2},

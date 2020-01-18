@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Jan 17 15:28:30 COT 2020
+#Fri Jan 17 15:38:43 COT 2020
 56.path=lib/arm64-v8a/libglog.so
 5.base=C\:\\Users\\Laszlo\\Desktop\\TestKilla\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 42.base=C\:\\Users\\Laszlo\\Desktop\\TestKilla\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
