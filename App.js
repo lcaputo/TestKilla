@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import {Asset} from 'expo-asset'
 import { AppLoading } from 'expo';
-import MovieApp from './app/index';
+import Login from './app/login';
+import MovieApp from './app/movieApp';
+import LayoutApp from './app/layout/layout';
 
 function cacheImages(images) {
   return images.map(image => {
@@ -40,7 +42,9 @@ export default class App extends React.Component {
           />
         );
       }
+      //return <LayoutApp />
       return <MovieApp />;
+      //return <Login />;
     }
 
 
