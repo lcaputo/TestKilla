@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import {Asset} from 'expo-asset'
 import { AppLoading } from 'expo';
-import Login from './app/login';
-import MovieApp from './app/movieApp';
-import LayoutApp from './app/layout/layout';
+import * as Font from 'expo-font';
+import DrawerNav from './app/components/leftDrawerNav';
+
 
 function cacheImages(images) {
   return images.map(image => {
@@ -18,7 +18,7 @@ function cacheImages(images) {
 }
 
 export default class App extends React.Component {
-  
+
   constructor() {
     super();
     this.state = {
@@ -26,12 +26,15 @@ export default class App extends React.Component {
     };
   }
 
-    async _loadAssetsAsync() {
-      const imageAssets = cacheImages([require('./assets/bg.jpg')]);
-  
-      await Promise.all([...imageAssets]);
-    }
-
+  async _loadAssetsAsync() {
+    await Expo.Font.loadAsync({
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+    });
+    const imageAssets = cacheImages([require('./assets/bg.jpg')]);
+    await Promise.all([...imageAssets]);
+    this.setState({ isReady: true })
+  }
+    
     render() {
       if (!this.state.isReady) {
         return (
@@ -42,9 +45,9 @@ export default class App extends React.Component {
           />
         );
       }
-      //return <LayoutApp />
-      return <MovieApp />;
-      //return <Login />;
+
+      return <DrawerNav />
+
     }
 
 
