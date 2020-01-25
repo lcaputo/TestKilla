@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Left, Body, Right, Title, Tab, Tabs } from 'native-base';
 import Tab1 from '../routes/homeStack';
-import Tab2 from '../screens/movies/searchMovie';
+import Tab2 from '../screens/searchMovie';
 import { Ionicons } from '@expo/vector-icons'
 
 export default class TabsComponent extends Component {

@@ -1,15 +1,15 @@
 import { React } from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import bestMovies from '../screens/movies/bestMovies'
-import movie from '../screens/movies/movie'
+import BestMovies from '../screens/bestMovies'
+import Movie from '../screens/movie'
 
 const screens = {
-    bestMovies: {
-        screen: bestMovies
+    BestMovies: {
+        screen: BestMovies
     },
-    movie: {
-        screen: movie
+    Movie: {
+        screen: Movie
     }
 }
 

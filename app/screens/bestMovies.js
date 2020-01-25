@@ -32,7 +32,7 @@ export default class topMovies extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('http://192.168.0.26:8000/movies/', parametros)
+    return fetch('http://192.168.0.105:8000/movies', parametros)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -75,7 +75,7 @@ export default class topMovies extends React.Component {
 
           <Right style={{top:10}}>
             <Button onPress={() => {
-              this.props.navigation.navigate('movie', {id:item.id})
+              this.props.navigation.navigate('Movie', {id:item.id})
             }}>
               <Text>
                 info<Ionicons name="md-paper" size={25} color='cadetblue' />
@@ -98,7 +98,6 @@ export default class topMovies extends React.Component {
             <FlatList
               data={this.state.dataMovie}
               extraData={this.state}
-              keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
             />
           </View>
