@@ -1,14 +1,20 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { 
   ActivityIndicator,
   FlatList,
   Image,
-  TouchableOpacity,
 } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,Title, ListItem, Subtitle } from 'native-base';
+import { Button, Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Body, Right,Title, ListItem, Subtitle } from 'native-base';
+import SwipeableRating from 'react-native-swipeable-rating';
 
+let headers = new Headers();
+
+paraametros = { method: 'GET',
+               headers: headers,
+               mode: 'cors',
+               cache: 'default' };
 
 export default class topMovies extends React.Component {
 
@@ -16,12 +22,17 @@ export default class topMovies extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      moviesData: []
+      moviesData: [],
+      rating: 0
     }
   }
 
+  handleRating = (rating) => {
+    this.setState({rating});
+  }
+
   componentDidMount() {
-    return fetch('http://192.168.0.26:8000/movies')
+    return fetch('http://192.168.0.26:8000/movies/', parametros)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -36,20 +47,40 @@ export default class topMovies extends React.Component {
       });
   }
 
+
   _renderItem = ({ item }) => (
     <Card>
         <CardItem>
          
-          <Thumbnail large square source={{uri:`https://image.tmdb.org/t/p/w500${item.poster_path}`}} />
+          <Thumbnail large square source={{uri:`https://image.tmdb.org/t/p/w500${item.cover_image}`}} />
 
           <Body>
-            <Text style={{justifyContent:'flex-start',fontWeight:'bold',paddingHorizontal:10}}> 
+            <Text style={{fontSize:14,justifyContent:'flex-start',fontWeight:'bold',paddingLeft:10}}> 
               {item.title}
             </Text>
+            <Text style={{fontSize:12,justifyContent:'flex-start',paddingLeft:10}}>
+              {item.production_company}
+            </Text>
+            <Text style={{fontSize:9,justifyContent:'flex-start',paddingLeft:10}}>{item.genres}</Text>
+            <SwipeableRating style={{justifyContent:'flex-start',paddingLeft:10}}
+                rating={item.vote_average/2}
+                size={16}
+                gap={4}
+                onPress={this.handleRating}
+                xOffset={30}
+                emptyColor={'grey'}
+                color={'gold'}
+              />
           </Body>
 
           <Right style={{top:10}}>
-            <Ionicons name="md-paper" size={42} color='cadetblue' />
+            <Button onPress={() => {
+              this.props.navigation.navigate('movie', {id:item.id})
+            }}>
+              <Text>
+                info<Ionicons name="md-paper" size={25} color='cadetblue' />
+              </Text>
+            </Button>
           </Right>
         </CardItem>
       </Card>
@@ -65,7 +96,7 @@ export default class topMovies extends React.Component {
           <View>
             <Text>{this.state.moviesData.original_title}</Text>
             <FlatList
-              data={this.state.dataMovie.results}
+              data={this.state.dataMovie}
               extraData={this.state}
               keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}

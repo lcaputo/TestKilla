@@ -13,6 +13,7 @@ import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
 import { concat } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons'
 import Tabs from './Tabs';
+import Login from './login'
 
 const DrawerContent = (props) => (
     <View>
@@ -50,10 +51,13 @@ const DrawerContent = (props) => (
 
 const MyDrawerNavigator = createDrawerNavigator (
     {
-        Tabs: Tabs
+      Tabs: Tabs
     },
     {
-    contentComponent: DrawerContent,
+      contentComponent: DrawerContent
+    },
+    {
+      Login: Login
     }
 )
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Left, Body, Right, Title, Tab, Tabs } from 'native-base';
-import Tab1 from '../screens/movies/bestMovies';
+import Tab1 from '../routes/homeStack';
 import Tab2 from '../screens/movies/searchMovie';
 import { Ionicons } from '@expo/vector-icons'
 

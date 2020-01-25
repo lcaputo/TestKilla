@@ -153,7 +153,7 @@ class Login extends Component {
                 <Circle r={height + 50} cx={width / 2} />
               </ClipPath>
               <Image
-                href={require("../assets/bg.jpg")}
+                href={require("../../assets/bg.jpg")}
                 width={width}
                 height={height + 50}
                 preserveAspectRatio="xMidYMid slice"

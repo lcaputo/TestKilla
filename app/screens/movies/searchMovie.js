@@ -1,13 +1,6 @@
-//This is an example of Card View// 
-
 import React from 'react';
-//import react in our code. 
-
-import { Text, View, StyleSheet } from 'react-native';
-//import all the components we are going to use.
-
+import { Text, View, StyleSheet, Button } from 'react-native';
 import { Card } from 'react-native-elements';
-//import Card
 
 export default class searchMovies extends React.Component {
   render() {
@@ -19,6 +12,7 @@ export default class searchMovies extends React.Component {
             This is a card from the react-native-elements
           </Text>
         </Card>
+        <Button title="go" />
       </View>
     );
   }
@@ -39,4 +33,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#34495e',
   },
+  Button: {
+    color:"#f194ff"
+  }
 });
