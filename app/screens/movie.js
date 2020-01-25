@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
   View, StyleSheet, ActivityIndicator,
   Svg, Circle, ClipPath, Image, width
 } from 'react-native';
@@ -8,17 +8,19 @@ import { Ionicons } from '@expo/vector-icons'
 import { createStackNavigator } from 'react-navigation'
 import { Text, Card, Thumbnail, CardItem } from 'native-base'
 import SwipeableRating from 'react-native-swipeable-rating';
-
+import Tabs from '../components/Tabs'
 
 let headers = new Headers();
 
-parametros = { method: 'GET',
-               headers: headers,
-               mode: 'cors',
-               cache: 'default' };
+parametros = {
+  method: 'GET',
+  headers: headers,
+  mode: 'cors',
+  cache: 'default'
+};
 
 export default class Movie extends React.Component {
-  
+
 
   constructor(props) {
     super(props)
@@ -31,7 +33,7 @@ export default class Movie extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    return fetch(`http://192.168.0.105:8000/movie/${this.state.movieID}`, parametros)
+    return fetch(`http://192.168.0.26:8000/movie/${this.state.movieID}`, parametros)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -51,92 +53,94 @@ export default class Movie extends React.Component {
       <View style={styles.container}>
 
         <View>
-        {this.state.isLoading ?
-          <ActivityIndicator size="large" color="#0000ff" />
-          :
-        <View>
-<Body>
-          {this.state.movieData.map(movie => {
-             return(
-           
-                
-                  <Image style = {{width:400, height:400, top:-80}} blurRadius={1}
-                source={{uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_image}`}} />
-                
-                
-             )
-            })}
+          {this.state.isLoading ?
+            <ActivityIndicator size="large" color="#0000ff" />
+            :
+            <View>
+              <Body>
+                {this.state.movieData.map(movie => {
+                  return (
+                    <Image style={{ width: 400, height: 400, top: -40 }} blurRadius={0}
+                      source={{ uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_image}` }} />
+                  )
+                })}
 
-<View style={{top:'-30%',width:410}}>
-<Card style={{width:width,flex:2}}>
-              <CardItem>
-              {this.state.movieData.map(movie => {
-             return(
-           
-                
-              <Thumbnail large square source={{uri:`https://image.tmdb.org/t/p/w500${movie.cover_image}`}} />
+                <View style={{ top: '-15%', width: 410 }}>
+                  <Card style={{ width: width, flex: 2 }}>
+                    <CardItem>
+                      {this.state.movieData.map(movie => {
+                        return (
+                          <Thumbnail large square source={{ uri: `https://image.tmdb.org/t/p/w500${movie.cover_image}` }} />
+                        )
+                      })}
+                      <Body style={{ paddingLeft: 10 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                        {this.state.movieData.map(movie => {
+                          return movie.title
+                        })}
+                        </Text>
+                        <Text>
+                          {this.state.movieData.map(movie => {
+                            return movie.production_company
+                          })}
+                        </Text>
 
-                
-             )
-            })}
-            <Body style={{paddingLeft:10}}>
-            <Text style={{fontSize:20,fontWeight:'bold'}}>dw</Text>
-            <Text>
-              {this.state.movieData.map(movie => {
-                return movie.production_company
-              })}
-            </Text>
+                          {this.state.movieData.map(movie => {
+                            return (
+                              <SwipeableRating style={{ justifyContent: 'flex-start'}}
+                                rating={movie.vote_average / 2}
+                                size={16}
+                                gap={4}
+                                //onPress={this.handleRating}
+                                xOffset={30}
+                                emptyColor={'grey'}
+                                color={'gold'}
+                              />
+                            )
+                          })}
+                      
 
-            <Text>
-            {this.state.movieData.map(movie => {
-                // FIXME: CRASH WaRNING
-                return (
-                  <SwipeableRating style={{justifyContent:'flex-start',paddingLeft:10}}
-                rating={movie.vote_average/2}
-                size={16}
-                gap={4}
-                //onPress={this.handleRating}
-                xOffset={30}
-                emptyColor={'grey'}
-                color={'gold'}
-              />
-                )
-              })}
-            </Text>
+                      </Body>
+                    </CardItem>
+                    <CardItem>
+                      <Text style={{top:-15,fontSize:14}}>
+                        {this.state.movieData.map(movie => {
+                          return movie.genres
+                        })}
+                      <Text>{}</Text>
+                      </Text>
 
-            </Body>
-              </CardItem>
-              <CardItem>
-              <Text style={{paddingHorizontal:10}}>
-              <Text style={{fontWeight:'bold'}}>Gender: </Text>
-              {this.state.movieData.map(movie => {
-                return movie.genres
-              })}
-            </Text>
+                    </CardItem>
+                    <CardItem>
+                    <Text style={{top:-25,fontSize:16,textAlign:'justify'}}>
+                        {this.state.movieData.map(movie => {
+                          return movie.overview
+                        })}
+                      <Text>{}</Text>
+                      </Text>
 
+                    </CardItem>
+                    //FIXME:
+                    <CardItem>
+                      <Tabs />
+                    </CardItem>
+                  </Card>
+                </View>
 
+              </Body>
 
-
-              </CardItem>
-
-            </Card>
-</View>
-
-            </Body>
-
+            </View>
+          }
+          
         </View>
 
-      
-        }
-        </View>
-
-        <Right/>
+        <Right />
         <Button style={styles.likeBtn}>
-          <Text>
             <Ionicons name="ios-heart-empty" size={40} color='white' />
-          </Text>
         </Button>
+
       </View>
+      
     );
   }
 }
@@ -157,13 +161,13 @@ const styles = StyleSheet.create({
     color: '#34495e',
   },
   likeBtn: {
-    width:60,
-    height:60,
-    justifyContent:"center",
-    position:'absolute',
-    bottom:'5%',
-    right:'5%',
-    padding:10,
-    borderRadius:50
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+    position: 'absolute',
+    bottom: '5%',
+    right: '5%',
+    padding: 10,
+    borderRadius: 50
   }
 });

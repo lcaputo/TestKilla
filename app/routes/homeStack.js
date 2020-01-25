@@ -13,6 +13,22 @@ const screens = {
     }
 }
 
-const HomeStack = createStackNavigator(screens)
+const HomeStack = createStackNavigator(screens,
+    {
+        initialRouteName: 'BestMovies',
+        /* The header config from HomeScreen is now here */
+        defaultNavigationOptions: {
+          headerStyle: {
+            backgroundColor: 'blue',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            textAlign: "center",
+            alignSelf: "center"
+          },
+        },
+      }
+    )
 
 export default createAppContainer(HomeStack)

@@ -32,7 +32,7 @@ export default class topMovies extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('http://192.168.0.105:8000/movies', parametros)
+    return fetch('http://192.168.0.26:8000/movies', parametros)
       .then((response) => response.json())
       .then((responseJson) => {
 
