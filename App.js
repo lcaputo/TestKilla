@@ -32,7 +32,7 @@ export default class App extends React.Component {
     });
     const imageAssets = cacheImages([require('./assets/bg.jpg')]);
     await Promise.all([...imageAssets]);
-    this.setState({ isReady: true })
+    this.state.setState({ isReady: true })
   }
     
     render() {

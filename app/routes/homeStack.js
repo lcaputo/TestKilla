@@ -6,7 +6,10 @@ import Movie from '../screens/movie'
 
 const screens = {
     BestMovies: {
-        screen: BestMovies
+        screen: BestMovies,
+        navigationOptions: {
+          headerTitle: 'Top 10 Best Movies Weeakly'
+        }
     },
     Movie: {
         screen: Movie
@@ -19,7 +22,7 @@ const HomeStack = createStackNavigator(screens,
         /* The header config from HomeScreen is now here */
         defaultNavigationOptions: {
           headerStyle: {
-            backgroundColor: 'blue',
+            backgroundColor: '#546e7a',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {

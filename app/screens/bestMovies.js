@@ -32,7 +32,7 @@ export default class topMovies extends React.Component {
   }
 
   componentDidMount() {
-    return fetch('http://192.168.0.26:8000/movies', parametros)
+    return fetch('http://192.168.0.107:8000/movies', parametros)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -49,7 +49,9 @@ export default class topMovies extends React.Component {
 
 
   _renderItem = ({ item }) => (
-    <Card>
+    <Card onPress={() => {
+      this.props.navigation.navigate('Movie', {id:item.id})
+    }}>
         <CardItem>
          
           <Thumbnail large square source={{uri:`https://image.tmdb.org/t/p/w500${item.cover_image}`}} />
@@ -98,7 +100,9 @@ export default class topMovies extends React.Component {
             <FlatList
               data={this.state.dataMovie}
               extraData={this.state}
+              keyExtractor={this._keyExtractor}
               renderItem={this._renderItem}
+              style={{marginBottom:'3.5%'}}
             />
           </View>
         }

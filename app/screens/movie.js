@@ -1,14 +1,18 @@
 import React from 'react';
 import {
   View, StyleSheet, ActivityIndicator,
-  Svg, Circle, ClipPath, Image, width
+  Svg, Circle, ClipPath, Image,
+  ScrollView, SafeAreaView, Dimensions,
 } from 'react-native';
-import { Button, Left, Right, Body } from 'native-base';
+import { Button, Left, Right, Body, Container, Content } from 'native-base';
 import { Ionicons } from '@expo/vector-icons'
 import { createStackNavigator } from 'react-navigation'
-import { Text, Card, Thumbnail, CardItem } from 'native-base'
+import { Text, Card, Thumbnail, CardItem, Tabs, Tab } from 'native-base'
 import SwipeableRating from 'react-native-swipeable-rating';
-import Tabs from '../components/Tabs'
+import MovieCast from './movieCast'
+
+var width = Dimensions.get('window').width; //full width
+var height = Dimensions.get('window').height; //full height
 
 let headers = new Headers();
 
@@ -21,22 +25,20 @@ parametros = {
 
 export default class Movie extends React.Component {
 
-
   constructor(props) {
     super(props)
     this.state = {
-      isLoading: false,
+      isLoading: true,
       movieID: this.props.navigation.getParam('id'),
-      movieData: []
+      movieData: [],
     }
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
-    return fetch(`http://192.168.0.26:8000/movie/${this.state.movieID}`, parametros)
+    return fetch(`http://192.168.0.107:8000/movie/${this.state.movieID}`, parametros)
       .then((response) => response.json())
       .then((responseJson) => {
-
+        console.log(responseJson)
         this.setState({
           isLoading: false,
           movieData: responseJson,
@@ -48,26 +50,34 @@ export default class Movie extends React.Component {
       });
   }
 
+
   render() {
     return (
+
       <View style={styles.container}>
 
-        <View>
+
           {this.state.isLoading ?
             <ActivityIndicator size="large" color="#0000ff" />
             :
+
             <View>
+
               <Body>
-                {this.state.movieData.map(movie => {
+
+              <ScrollView style={{backgroundColor:'transparent'}}>
+
+                <View style={{width: width}}>
+                  <Card style={styles.card}>
+              <CardItem style={{height:height/3}}>
+              {this.state.movieData.map(movie => {
                   return (
-                    <Image style={{ width: 400, height: 400, top: -40 }} blurRadius={0}
+                    <Image style={{top: -40, left:0, right:0, bottom:0, position:'absolute', zIndex:-1}} blurRadius={0}
                       source={{ uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_image}` }} />
                   )
                 })}
-
-                <View style={{ top: '-15%', width: 410 }}>
-                  <Card style={{ width: width, flex: 2 }}>
-                    <CardItem>
+              </CardItem>
+                  <CardItem>
                       {this.state.movieData.map(movie => {
                         return (
                           <Thumbnail large square source={{ uri: `https://image.tmdb.org/t/p/w500${movie.cover_image}` }} />
@@ -102,37 +112,63 @@ export default class Movie extends React.Component {
 
                       </Body>
                     </CardItem>
+
                     <CardItem>
                       <Text style={{top:-15,fontSize:14}}>
                         {this.state.movieData.map(movie => {
                           return movie.genres
                         })}
-                      <Text>{}</Text>
                       </Text>
 
                     </CardItem>
-                    <CardItem>
-                    <Text style={{top:-25,fontSize:16,textAlign:'justify'}}>
-                        {this.state.movieData.map(movie => {
+
+
+                    <CardItem style={{top:-25}}>
+
+                    <ScrollView>
+                    <SafeAreaView style={{ flex: 1 }}>
+
+                        <Tabs tabBarUnderlineStyle={{backgroundColor:'white'}}>
+
+
+     <Tab tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Sinopsis">
+        
+
+
+        <Text  style={{marginTop:20,fontSize:16,textAlign:'justify'}}>
+        {this.state.movieData.map(movie => {
                           return movie.overview
                         })}
-                      <Text>{}</Text>
-                      </Text>
+        </Text>
+
+        </Tab>
+
+
+       <Tab style={{height: Dimensions.get('window').height - 100}} tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Cast">
+            <MovieCast movieID={this.state.movieID} />
+        </Tab>
+ 
+
+      </Tabs> 
+
+      </SafeAreaView>
+      </ScrollView>
+
 
                     </CardItem>
-                    //FIXME:
-                    <CardItem>
-                      <Tabs />
-                    </CardItem>
+             
                   </Card>
                 </View>
+                </ScrollView>
 
               </Body>
 
             </View>
+            
+
           }
+
           
-        </View>
 
         <Right />
         <Button style={styles.likeBtn}>
@@ -147,11 +183,10 @@ export default class Movie extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    width: width,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 40,
-    backgroundColor: '#ecf0f1',
   },
   paragraph: {
     margin: 24,
@@ -168,6 +203,19 @@ const styles = StyleSheet.create({
     bottom: '5%',
     right: '5%',
     padding: 10,
-    borderRadius: 50
+    borderRadius: 50,
+    zIndex:9
+  },
+  card: {
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    paddingVertical: 5,
+  },
+  parallax: {
+    
+/*     background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
   }
 });
