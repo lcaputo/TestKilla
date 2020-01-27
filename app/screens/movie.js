@@ -10,6 +10,7 @@ import { createStackNavigator } from 'react-navigation'
 import { Text, Card, Thumbnail, CardItem, Tabs, Tab } from 'native-base'
 import SwipeableRating from 'react-native-swipeable-rating';
 import MovieCast from './movieCast'
+import Animated, { Easing } from 'react-native-reanimated';
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
@@ -35,7 +36,7 @@ export default class Movie extends React.Component {
   }
 
   componentDidMount() {
-    return fetch(`http://192.168.0.107:8000/movie/${this.state.movieID}`, parametros)
+    return fetch(`http://thecapu.com:8000/movie/${this.state.movieID}`, parametros)
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson)
@@ -52,6 +53,8 @@ export default class Movie extends React.Component {
 
 
   render() {
+    const {height: heightOfDeviceScreen} = Dimensions.get('window');
+
     return (
 
       <View style={styles.container}>
@@ -125,34 +128,43 @@ export default class Movie extends React.Component {
 
                     <CardItem style={{top:-25}}>
 
-                    <ScrollView>
-                    <SafeAreaView style={{ flex: 1 }}>
-
-                        <Tabs tabBarUnderlineStyle={{backgroundColor:'white'}}>
-
-
-     <Tab tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Sinopsis">
-        
+   
+  <ScrollView style={{flex: 1}}  alwaysBounceVertical={false}
+            showsVerticalScrollIndicator={false} >
+                     
+    
+<View>
 
 
-        <Text  style={{marginTop:20,fontSize:16,textAlign:'justify'}}>
-        {this.state.movieData.map(movie => {
-                          return movie.overview
-                        })}
-        </Text>
-
-        </Tab>
+<Tabs tabBarUnderlineStyle={{ backgroundColor: 'white' }}>
 
 
-       <Tab style={{height: Dimensions.get('window').height - 100}} tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Cast">
-            <MovieCast movieID={this.state.movieID} />
-        </Tab>
- 
+<Tab style={{height:height/4}} tabStyle={{ backgroundColor: '#cfd8dc' }} activeTabStyle={{ backgroundColor: '#607d8b' }} textStyle={{ color: 'black' }} activeTextStyle={{ color: 'white' }} heading="Sinopsis">
+  
+  <Text style={{ marginTop: 20, fontSize: 16, textAlign: 'justify' }}>
+    {this.state.movieData.map(movie => {
+      return movie.overview
+    })}
+  </Text>
 
-      </Tabs> 
+</Tab>
 
-      </SafeAreaView>
-      </ScrollView>
+
+<Tab tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Cast">
+<MovieCast movieID={this.state.movieID} />
+</Tab>
+
+</Tabs> 
+
+
+</View>
+
+  </ScrollView>
+
+
+
+
+
 
 
                     </CardItem>
@@ -210,6 +222,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: 'center',
     paddingVertical: 5,
+    height: 'auto'
   },
   parallax: {
     

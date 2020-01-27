@@ -35,7 +35,7 @@ export default class MovieCast extends React.Component {
   }
 
   componentDidMount() {
-    return fetch(`http://192.168.0.107:8000/movie/${this.state.movieID}/cast`, parametros)
+    return fetch(`http://thecapu.com:8000/movie/${this.state.movieID}/cast`, parametros)
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson)
@@ -52,19 +52,31 @@ export default class MovieCast extends React.Component {
 
   _renderCast = ({ item }) => (
 
-      <Text>ok</Text>
+      <Card>
+        <CardItem>
+          {item.picture == null ?
+            <Thumbnail source={require('../../assets/DefaultPP.png')} />
+          :
+            <Thumbnail source={{ uri: `https://image.tmdb.org/t/p/w500${item.picture}` }} />
+          }
+          <Body style={{paddingLeft:'5%'}}>
+            <Text style={{fontWeight:'bold'}}>{item.name}</Text>
+            <Text>{item.character}</Text>
+          </Body>
+        </CardItem>
+      </Card>
 
   )
 
   render() {
     return (
         
-                    <FlatList
+            <FlatList  
               data={this.state.movieCast}
               extraData={this.state}
               keyExtractor={this._keyExtractor}
               renderItem={this._renderCast}
-              style={{marginBottom:'3.5%'}}
+              style={{marginTop:'2%',height:height/5}}
             />
   
     );
