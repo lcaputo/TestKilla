@@ -29,7 +29,8 @@
     "android": {
       "package": "com.yourcompany.yourappname"
     },
-    "entryPoint": "node_modules/expo/AppEntry.js"
+    "entryPoint": "node_modules/expo/AppEntry.js",
+    "description": ""
   },
   "displayName": "TestKilla",
   "name": "TesKilla"

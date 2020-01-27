@@ -75,7 +75,7 @@ export default class topMovies extends React.Component {
           </Body>
 
           <Right style={{top:10}}>
-          <Ionicons name="ios-information-circle-outline" size={40} color='cadetblue' onPress={() => {
+          <Ionicons name="ios-eye" size={40} color='#546e7a' onPress={() => {
               this.props.navigation.navigate('Movie', {id:item.id})
             }} />
           </Right>

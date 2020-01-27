@@ -3,8 +3,6 @@ import {
   View, StyleSheet, ActivityIndicator,
   Image, ScrollView, Dimensions
 } from 'react-native';
-import { Button, Right} from 'native-base';
-import { Ionicons } from '@expo/vector-icons'
 import { Text, Card, Thumbnail, CardItem, Tabs, Tab, Body } from 'native-base'
 import SwipeableRating from 'react-native-swipeable-rating';
 import MovieCast from './movieCast'
@@ -51,34 +49,34 @@ export default class Movie extends React.Component {
 
 
   render() {
-    const {height: heightOfDeviceScreen} = Dimensions.get('window');
+    const { height: heightOfDeviceScreen } = Dimensions.get('window');
 
     return (
 
       <View style={styles.container}>
 
 
-          {this.state.isLoading ?
-            <ActivityIndicator size="large" color="#0000ff" />
-            :
+        {this.state.isLoading ?
+          <ActivityIndicator size="large" color="#0000ff" />
+          :
 
-            <View>
+          <View>
 
-              <Body>
+            <Body>
 
-              <ScrollView style={{backgroundColor:'transparent'}}>
+              <ScrollView style={{ backgroundColor: 'transparent' }}>
 
-                <View style={{width: width}}>
+                <View style={{ width: width }}>
                   <Card style={styles.card}>
-              <CardItem style={{height:height/3}}>
-              {this.state.movieData.map(movie => {
-                  return (
-                    <Image style={{top: -40, left:0, right:0, bottom:0, position:'absolute', zIndex:-1}} blurRadius={0}
-                      source={{ uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_image}` }} />
-                  )
-                })}
-              </CardItem>
-                  <CardItem>
+                    <CardItem style={{ height: height / 3 }}>
+                      {this.state.movieData.map(movie => {
+                        return (
+                          <Image style={{ top: -40, left: 0, right: 0, bottom: 0, position: 'absolute', zIndex: -1 }} blurRadius={0}
+                            source={{ uri: `https://image.tmdb.org/t/p/w500${movie.backdrop_image}` }} />
+                        )
+                      })}
+                    </CardItem>
+                    <CardItem>
                       {this.state.movieData.map(movie => {
                         return (
                           <Thumbnail large square source={{ uri: `https://image.tmdb.org/t/p/w500${movie.cover_image}` }} />
@@ -86,9 +84,9 @@ export default class Movie extends React.Component {
                       })}
                       <Body style={{ paddingLeft: 10 }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        {this.state.movieData.map(movie => {
-                          return movie.title
-                        })}
+                          {this.state.movieData.map(movie => {
+                            return movie.title
+                          })}
                         </Text>
                         <Text>
                           {this.state.movieData.map(movie => {
@@ -96,26 +94,26 @@ export default class Movie extends React.Component {
                           })}
                         </Text>
 
-                          {this.state.movieData.map(movie => {
-                            return (
-                              <SwipeableRating style={{ justifyContent: 'flex-start'}}
-                                rating={movie.vote_average / 2}
-                                size={16}
-                                gap={4}
-                                //onPress={this.handleRating}
-                                xOffset={30}
-                                emptyColor={'grey'}
-                                color={'gold'}
-                              />
-                            )
-                          })}
-                      
+                        {this.state.movieData.map(movie => {
+                          return (
+                            <SwipeableRating style={{ justifyContent: 'flex-start' }}
+                              rating={movie.vote_average / 2}
+                              size={16}
+                              gap={4}
+                              //onPress={this.handleRating}
+                              xOffset={30}
+                              emptyColor={'grey'}
+                              color={'gold'}
+                            />
+                          )
+                        })}
+
 
                       </Body>
                     </CardItem>
 
                     <CardItem>
-                      <Text style={{top:-15,fontSize:14}}>
+                      <Text style={{ top: -15, fontSize: 14 }}>
                         {this.state.movieData.map(movie => {
                           return movie.genres
                         })}
@@ -124,40 +122,40 @@ export default class Movie extends React.Component {
                     </CardItem>
 
 
-                    <CardItem style={{top:-25}}>
-
-   
-  <ScrollView style={{flex: 1}}  alwaysBounceVertical={false}
-            showsVerticalScrollIndicator={false} >
-                     
-    
-<View>
+                    <CardItem style={{ top: -25 }}>
 
 
-<Tabs tabBarUnderlineStyle={{ backgroundColor: 'white' }}>
+                      <ScrollView style={{ flex: 1 }} alwaysBounceVertical={false}
+                        showsVerticalScrollIndicator={false} >
 
 
-<Tab style={{height:height/4}} tabStyle={{ backgroundColor: '#cfd8dc' }} activeTabStyle={{ backgroundColor: '#607d8b' }} textStyle={{ color: 'black' }} activeTextStyle={{ color: 'white' }} heading="Sinopsis">
-  
-  <Text style={{ marginTop: 20, fontSize: 16, textAlign: 'justify' }}>
-    {this.state.movieData.map(movie => {
-      return movie.overview
-    })}
-  </Text>
-
-</Tab>
+                        <View>
 
 
-<Tab tabStyle={{backgroundColor:'#cfd8dc'}} activeTabStyle={{backgroundColor:'#607d8b'}} textStyle={{color:'black'}} activeTextStyle={{color:'white'}} heading="Cast">
-<MovieCast movieID={this.state.movieID} />
-</Tab>
-
-</Tabs> 
+                          <Tabs tabBarUnderlineStyle={{ backgroundColor: 'white' }}>
 
 
-</View>
+                            <Tab style={{ height: height / 3.5 }} tabStyle={{ backgroundColor: '#cfd8dc' }} activeTabStyle={{ backgroundColor: '#607d8b' }} textStyle={{ color: 'black' }} activeTextStyle={{ color: 'white' }} heading="Sinopsis">
 
-  </ScrollView>
+                              <Text style={{ marginTop: 20, fontSize: 16, textAlign: 'justify' }}>
+                                {this.state.movieData.map(movie => {
+                                  return movie.overview
+                                })}
+                              </Text>
+
+                            </Tab>
+
+
+                            <Tab tabStyle={{ backgroundColor: '#cfd8dc' }} activeTabStyle={{ backgroundColor: '#607d8b' }} textStyle={{ color: 'black' }} activeTextStyle={{ color: 'white' }} heading="Cast">
+                              <MovieCast movieID={this.state.movieID} />
+                            </Tab>
+
+                          </Tabs>
+
+
+                        </View>
+
+                      </ScrollView>
 
 
 
@@ -166,27 +164,20 @@ export default class Movie extends React.Component {
 
 
                     </CardItem>
-             
+
                   </Card>
                 </View>
-                </ScrollView>
+              </ScrollView>
 
-              </Body>
+            </Body>
 
-            </View>
-            
+          </View>
 
-          }
 
-          
-
-        <Right />
-        <Button style={styles.likeBtn}>
-            <Ionicons name="ios-heart-empty" size={40} color='white' />
-        </Button>
+        }
 
       </View>
-      
+
     );
   }
 }
@@ -205,28 +196,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#34495e',
   },
-  likeBtn: {
-    width: 60,
-    height: 60,
-    justifyContent: "center",
-    position: 'absolute',
-    bottom: '5%',
-    right: '5%',
-    padding: 10,
-    borderRadius: 50,
-    zIndex:9
-  },
   card: {
     alignSelf: 'stretch',
     textAlign: 'center',
     paddingVertical: 5,
     height: 'auto'
   },
-  parallax: {
-    
-/*     background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
-  }
 });

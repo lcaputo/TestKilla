@@ -76,7 +76,7 @@ export default class MovieCast extends React.Component {
             extraData={this.state}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderCast}
-            style={{ marginTop: '2%', height: height / 5 }}
+            style={{ marginTop: '2%', height: height / 3 }}
           />
         }
         </View>
