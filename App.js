@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import {Asset} from 'expo-asset'
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import DrawerNav from './app/components/leftDrawerNav';
-
+import HomeStack from './app/routes/homeStack'
 
 function cacheImages(images) {
   return images.map(image => {
@@ -30,8 +28,6 @@ export default class App extends React.Component {
     await Expo.Font.loadAsync({
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
     });
-    const imageAssets = cacheImages([require('./assets/bg.jpg')]);
-    await Promise.all([...imageAssets]);
     this.state.setState({ isReady: true })
   }
     
@@ -46,7 +42,7 @@ export default class App extends React.Component {
         );
       }
 
-      return <DrawerNav />
+      return <HomeStack />
 
     }
 

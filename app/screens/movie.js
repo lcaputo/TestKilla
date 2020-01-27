@@ -1,16 +1,14 @@
 import React from 'react';
 import {
   View, StyleSheet, ActivityIndicator,
-  Svg, Circle, ClipPath, Image,
-  ScrollView, SafeAreaView, Dimensions,
+  Image, ScrollView, Dimensions
 } from 'react-native';
-import { Button, Left, Right, Body, Container, Content } from 'native-base';
+import { Button, Right} from 'native-base';
 import { Ionicons } from '@expo/vector-icons'
-import { createStackNavigator } from 'react-navigation'
-import { Text, Card, Thumbnail, CardItem, Tabs, Tab } from 'native-base'
+import { Text, Card, Thumbnail, CardItem, Tabs, Tab, Body } from 'native-base'
 import SwipeableRating from 'react-native-swipeable-rating';
 import MovieCast from './movieCast'
-import Animated, { Easing } from 'react-native-reanimated';
+
 
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height

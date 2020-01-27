@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-  View, StyleSheet, ActivityIndicator,
-  Svg, Circle, ClipPath, Image, ImageBackground,
-  ScrollView, SafeAreaView, Dimensions, FlatList,
+  StyleSheet, ActivityIndicator,
+  Dimensions, FlatList,
 } from 'react-native';
-import { Button, Left, Right, Body } from 'native-base';
-import { Ionicons } from '@expo/vector-icons'
-import { createStackNavigator } from 'react-navigation'
+import { Body, View } from 'native-base';
 import { Text, Card, Thumbnail, CardItem, Tabs, Tab } from 'native-base'
-import SwipeableRating from 'react-native-swipeable-rating';
 
-const initialLayout = { width: Dimensions.get('window').height };
+
 var width = Dimensions.get('window').width; //full width
 var height = Dimensions.get('window').height; //full height
 
@@ -52,33 +48,38 @@ export default class MovieCast extends React.Component {
 
   _renderCast = ({ item }) => (
 
-      <Card>
-        <CardItem>
-          {item.picture == null ?
-            <Thumbnail source={require('../../assets/DefaultPP.png')} />
+    <Card>
+      <CardItem>
+        {item.picture == null ?
+          <Thumbnail source={require('../../assets/DefaultPP.png')} />
           :
-            <Thumbnail source={{ uri: `https://image.tmdb.org/t/p/w500${item.picture}` }} />
-          }
-          <Body style={{paddingLeft:'5%'}}>
-            <Text style={{fontWeight:'bold'}}>{item.name}</Text>
-            <Text>{item.character}</Text>
-          </Body>
-        </CardItem>
-      </Card>
+          <Thumbnail source={{ uri: `https://image.tmdb.org/t/p/w500${item.picture}` }} />
+        }
+        <Body style={{ paddingLeft: '5%' }}>
+          <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
+          <Text>{item.character}</Text>
+        </Body>
+      </CardItem>
+    </Card>
 
   )
 
   render() {
     return (
-        
-            <FlatList  
-              data={this.state.movieCast}
-              extraData={this.state}
-              keyExtractor={this._keyExtractor}
-              renderItem={this._renderCast}
-              style={{marginTop:'2%',height:height/5}}
-            />
-  
+        <View style={{height:'100%'}}>
+          {this.state.isLoading ?
+          <ActivityIndicator size="large" color="#0000ff" />
+          :
+
+          <FlatList
+            data={this.state.movieCast}
+            extraData={this.state}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderCast}
+            style={{ marginTop: '2%', height: height / 5 }}
+          />
+        }
+        </View>
     );
 
   }
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     right: '5%',
     padding: 10,
     borderRadius: 50,
-    zIndex:9
+    zIndex: 9
   },
   card: {
     alignSelf: 'stretch',
@@ -116,10 +117,10 @@ const styles = StyleSheet.create({
     paddingVertical: 5
   },
   parallax: {
-    
-/*     background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
+
+    /*     background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover; */
   }
 });

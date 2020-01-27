@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import { 
   ActivityIndicator,
-  FlatList,
-  Image,
+  FlatList
 } from 'react-native';
-import { Button, Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Body, Right,Title, ListItem, Subtitle } from 'native-base';
+import { Button, Card, CardItem, Thumbnail, Text, Right, Body } from 'native-base';
 import SwipeableRating from 'react-native-swipeable-rating';
 
 let headers = new Headers();
@@ -76,13 +75,9 @@ export default class topMovies extends React.Component {
           </Body>
 
           <Right style={{top:10}}>
-            <Button onPress={() => {
+          <Ionicons name="ios-information-circle-outline" size={40} color='cadetblue' onPress={() => {
               this.props.navigation.navigate('Movie', {id:item.id})
-            }}>
-              <Text>
-                info<Ionicons name="md-paper" size={25} color='cadetblue' />
-              </Text>
-            </Button>
+            }} />
           </Right>
         </CardItem>
       </Card>
